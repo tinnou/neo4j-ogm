@@ -16,11 +16,12 @@ package org.neo4j.ogm.testutil;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.neo4j.graphdb.GraphDatabaseService;
-
 import org.neo4j.ogm.drivers.embedded.driver.EmbeddedDriver;
 import org.neo4j.ogm.drivers.http.driver.HttpDriver;
 import org.neo4j.ogm.service.Components;
 import org.neo4j.test.TestGraphDatabaseFactory;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
 /**
  * @author vince
@@ -30,6 +31,7 @@ public class MultiDriverTestClass {
     private static TestServer testServer;
     private static GraphDatabaseService impermanentDb;
 
+    @BeforeSuite
     @BeforeClass
     public static void setupMultiDriverTestEnvironment() {
 
@@ -52,6 +54,7 @@ public class MultiDriverTestClass {
         }
     }
 
+    @AfterSuite
     @AfterClass
     public static void tearDownMultiDriverTestEnvironment() {
         if (testServer != null) {

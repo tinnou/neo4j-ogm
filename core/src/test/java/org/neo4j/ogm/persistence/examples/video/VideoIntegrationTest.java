@@ -8,10 +8,8 @@ import org.neo4j.ogm.session.SessionFactory;
 import org.neo4j.ogm.testutil.MultiDriverTestClass;
 import org.neo4j.ogm.transaction.Transaction;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -21,15 +19,11 @@ import static org.junit.Assert.assertNotNull;
 @Test
 public class VideoIntegrationTest extends MultiDriverTestClass {
 
-    private static Session session;
-
-    @BeforeClass
-    public void init() throws IOException {
-        session = new SessionFactory("org.neo4j.ogm.domain.video").openSession();
-    }
+    private final SessionFactory sessionFactory = new SessionFactory("org.neo4j.ogm.domain.video");
 
     @AfterClass
     public void clear() {
+        Session session = sessionFactory.openSession();
         session.purgeDatabase();
     }
 
@@ -51,7 +45,7 @@ public class VideoIntegrationTest extends MultiDriverTestClass {
     }
 
     public void saveVideo() {
-
+        Session session = sessionFactory.openSession();
         /*
         Save VideoAsset node only, in one transaction
          */
